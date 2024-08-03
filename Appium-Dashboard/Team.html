@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Team Page</title>
+  <link rel="stylesheet" href="css/Team.css" />
+</head>
+<body>
+  <div class="left-section">
+    <div class="icon-group">
+      <img src="images/Vector.png" alt="Icon 1" class="icon" />
+      <img src="images/mdi_chat-outline.png" alt="Icon 2" class="icon" />
+      <img src="images/Vector (1).png" alt="Icon 3" class="icon" />
+      <img src="images/Vector (2).png" alt="Icon 4" class="icon" />
+      <img src="images/Vector (3).png" alt="Icon 5" class="icon" />
+      <img src="images/Vector (4).png" alt="Icon 6" class="icon" />
+      <img src="images/material-symbols_login.png" alt="Icon 7" class="icon" />
+    </div>
+    <div class="vertical-line"></div>
+    <div class="heading-group">
+      <h1 class="main-heading">Appium Logics Solution</h1>
+      <div class="icon-wrapper">
+        <img src="images/Vector (5).png" alt="Main Icon" class="main-icon" />
+      </div>
+      <h2 class="sub-heading1">Admin</h2>
+      <p class="sub-text1">Private Sector Employee</p>
+      <div class="glassmorphism">
+        <h3 class="working-hours-heading">Working Hours</h3>
+        <div class="working-hours">
+          <div class="time">
+            <img src="images/pic1.png" alt="Start Time" class="time-icon" />
+          </div>
+          <div class="time">
+            <img src="images/pic2.png" alt="End Time" class="time-icon" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="right-section">
+    <div class="heading-divv">Team Members</div>
+    <div class="color-container"></div>
+    <button class="search-btn">Search</button>
+    <div class="heading-container">
+      <div class="heading-left" id="add-member-btn">+ Add New Member</div>
+      <div class="heading-right">
+        <a href="#" class="view-more" style="color: red"><u>View More</u></a>
+      </div>
+    </div>
+
+    <div class="cards-container" id="cards-container">
+      <!-- Team cards will be dynamically loaded here -->
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      loadMembers();
+
+      // Add New Member
+      document.getElementById('add-member-btn').addEventListener('click', function() {
+        const name = prompt('Enter member name:');
+        const profession = prompt('Enter member profession:');
+        const profileImage = prompt('Enter profile image URL:');
+        
+        if (name && profession && profileImage) {
+          fetch('add_member.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({
+              name: name,
+              profession: profession,
+              profile_image: profileImage
+            })
+          })
+          .then(response => response.json())
+          .then(data => {
+            alert(data.message);
+            if (data.message === 'New member added successfully') {
+              loadMembers(); // Reload members to reflect the new addition
+            }
+          });
+        }
+      });
+
+      // Search Members
+      document.querySelector('.search-btn').addEventListener('click', function() {
+        const searchTerm = prompt('Enter search term:');
+        if (searchTerm) {
+          fetch(`search_members.php?searchTerm=${encodeURIComponent(searchTerm)}`)
+            .then(response => response.json())
+            .then(data => {
+              displayMembers(data);
+            });
+        }
+      });
+
+      function loadMembers() {
+        fetch('fetch_members.php')
+          .then(response => response.json())
+          .then(data => {
+            displayMembers(data);
+          });
+      }
+
+      function displayMembers(members) {
+        const container = document.getElementById('cards-container');
+        container.innerHTML = ''; // Clear existing content
+
+        members.forEach(member => {
+          const card = document.createElement('div');
+          card.className = 'card';
+
+          card.innerHTML = `
+            <div class="card-line"></div>
+            <div class="card-content">
+              <div class="card-image">
+                <img src="${member.profile_image}" alt="Member Image" />
+              </div>
+              <div class="card-name">${member.name}</div>
+              <div class="card-profession">${member.profession}</div>
+              <div class="card-footer">
+                <div class="assign">Assign</div>
+                <div class="view">
+                  <img src="images/Group.png" alt="View Icon" />
+                  View
+                </div>
+              </div>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      }
+    });
+  </script>
+</body>
+</html>

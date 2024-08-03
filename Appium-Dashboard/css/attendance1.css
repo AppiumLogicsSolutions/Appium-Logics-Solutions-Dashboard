@@ -1,0 +1,256 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+    background-color:white;
+  }
+
+  .left-section {
+    width: 25%;
+    background-image: url('images/background1.jpg');
+    background-size: cover;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+  }
+  
+  .icon-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 37px;
+    position: absolute;
+    left: 20px;
+    cursor: pointer;
+  }
+  
+  .icon {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .vertical-line {
+    width: 2px;
+    background-color: white;
+    height: 100%;
+    position: absolute;
+    left: 20%;
+    top: 0;
+  }
+  
+  .heading-group {
+    text-align: center;
+    color: white;
+    position: absolute;
+    left: 60%;
+  }
+  
+  .main-heading {
+    margin-top: -200px;
+    margin-left: -120px;
+    font-size: 20px;
+  }
+  
+  .icon-wrapper {
+    border: 2px solid white;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    margin-top: 80px;
+   margin-left: -60px;
+  }
+  
+  .main-icon {
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+  }
+  
+  .sub-heading1 {
+    margin: 0;
+    padding: 5px;
+    font-size: 30px;
+    font-weight: lighter;
+    margin-left: -100px;
+    
+  }
+  
+  .sub-text1 {
+    margin: 0;
+    padding: 5px;
+    font-size: 1em;
+    font-weight: lighter;
+    margin-left: -90px;
+  }
+  
+
+  .glassmorphism {
+    margin-top: 20px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  margin-left: -120px;
+  }
+  
+  .working-hours-heading {
+    margin: 0;
+    padding-bottom: 10px;
+    font-size: 1em;
+    color: black;
+    font-weight: lighter;
+  }
+  
+  .working-hours {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .time {
+    text-align: center;
+    color: white;
+  }
+  
+  .time p {
+    margin: 0 0 5px;
+    font-size: 15px;
+    color:black;
+    font-weight: lighter;
+    margin-top: 20px;
+  }
+  
+  .time-icon {
+    width: 100px;
+    height: 60px;
+  }
+
+
+  /* Right Side Dashboard CSS */
+
+  .right-section {
+    width: 75%;
+    padding: 20px;
+    background-color: #f9f9f9;
+  }
+  
+  .attendance-heading {
+    margin: 0;
+    padding-bottom: 10px;
+    font-size: 2em;
+    color:black;
+  }
+  
+  .divider-line {
+    border: 0;
+    height: 2px;
+    background-color: black;
+    margin: 10px 0;
+  }
+  
+  .search-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    width: 60px;
+  }
+  
+  .search-field {
+    flex: 1;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .search-icon {
+    width: 24px;
+    height: 24px;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  
+  .info-section {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-left: -90px;
+  }
+  
+  .info-item {
+    flex: 1;
+    text-align: center;
+    color:black;
+    font-weight: lighter;
+    cursor: pointer;
+  }
+
+  .info-item .info-item-2{
+    margin-left: -100px;
+    color:#006761;
+  }
+
+  .info-item .info-item-3{
+    margin-right: -300px;
+    color:rgb(180, 178, 178);
+  }
+
+
+  
+  .info-item h2 {
+    margin: 0;
+    font-size: 1.2em;
+    color: #333;
+  }
+
+
+  .headings-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .heading-item {
+    flex: 1;
+    text-align: center;
+    font-weight: bold;
+    border-bottom: 2px solid #ddd;
+    padding: 10px 0;
+  }
+
+  .data-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+  }
+  
+  .data-cell {
+    flex: 1;
+    text-align: center;
+    color:#001F3F;
+    font-size: 12px;
+  }
+  
+  .data-checkbox {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .data-text {
+    margin-left: 10px;
+    font-size: 1em;
+  }
+
+
+  

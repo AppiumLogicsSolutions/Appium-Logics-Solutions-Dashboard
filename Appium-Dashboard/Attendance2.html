@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Attendance</title>
+  <link rel="stylesheet" href="css/attendance2.css" />
+</head>
+<body>
+  <div class="left-section">
+    <div class="icon-group">
+      <img src="images/Vector.png" alt="Icon 1" class="icon" />
+      <img src="images/mdi_chat-outline.png" alt="Icon 2" class="icon" />
+      <img src="images/Vector (1).png" alt="Icon 3" class="icon" />
+      <img src="images/Vector (2).png" alt="Icon 4" class="icon" />
+      <img src="images/Vector (3).png" alt="Icon 5" class="icon" />
+      <img src="images/Vector (4).png" alt="Icon 6" class="icon" />
+      <img src="images/material-symbols_login.png" alt="Icon 7" class="icon" />
+    </div>
+    <div class="vertical-line"></div>
+    <div class="heading-group">
+      <h1 class="main-heading">Appium Logics Solution</h1>
+      <div class="icon-wrapper">
+        <img src="images/Vector (5).png" alt="Main Icon" class="main-icon" />
+      </div>
+      <h2 class="sub-heading1">Admin</h2>
+      <p class="sub-text1">Private Sector Employee</p>
+      <div class="glassmorphism">
+        <h3 class="working-hours-heading">Working Hours</h3>
+        <div class="working-hours">
+          <div class="time">
+            <img src="images/pic1.png" alt="Start Time" class="time-icon" />
+          </div>
+          <div class="time">
+            <img src="images/pic2.png" alt="End Time" class="time-icon" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="right-section">
+    <h1 class="attendance-heading">Attendance</h1>
+    <hr class="divider-line" />
+
+    <div class="search-container">
+      <input type="text" placeholder="Enter Employee ID" class="search-field" id="employee-id" />
+      <button class="mark-attendance-btn" style="width: 200px" onclick="markAttendance()">Mark Attendance</button>
+    </div>
+
+    <div class="info-section">
+      <div class="info-item">
+        <h2 class="info-item-1">January 2024</h2>
+      </div>
+      <div class="info-item">
+        <h2 class="info-item-2"><u>View Previous</u></h2>
+      </div>
+      <div class="info-item">
+        <h2 class="info-item-3">Total Working Days</h2>
+      </div>
+      <div class="info-item">
+        <h2 class="info-item-4">22</h2>
+      </div>
+    </div>
+
+    <div class="headings-row">
+      <div class="heading-item">Employee Name</div>
+      <div class="heading-item">ID</div>
+      <div class="heading-item">Status</div>
+      <div class="heading-item">Absents In This Month</div>
+    </div>
+
+    <div id="data-rows-container"></div>
+  </div>
+
+  <script>
+    function markAttendance() {
+      const employeeId = document.getElementById('employee-id').value.trim();
+
+      if (employeeId) {
+        // Check if the entered ID matches the logged-in user's ID
+        fetch('check_session.php')
+          .then(response => response.json())
+          .then(sessionData => {
+            if (sessionData.user_id === employeeId) {
+              fetch(`fetch_employee.php?employee_id=${encodeURIComponent(employeeId)}`)
+                .then(response => response.json())
+                .then(data => {
+                  const dataRowsContainer = document.getElementById('data-rows-container');
+                  
+                  if (data.name && data.name !== "Unknown Employee" && data.name !== "No ID provided") {
+                    const newRow = document.createElement('div');
+                    newRow.classList.add('data-row');
+                    newRow.innerHTML = `
+                      <div class="data-cell">
+                        <input type="checkbox" class="data-checkbox" />
+                        <span class="data-text">${data.name}</span>
+                      </div>
+                      <div class="data-cell">${employeeId}</div>
+                      <div class="data-cell">
+                        <button class="dataButton">Present</button>
+                      </div>
+                      <div class="data-cell">00</div>
+                    `;
+                    
+                    dataRowsContainer.appendChild(newRow);
+                  } else {
+                    alert('Employee not found or invalid ID.');
+                  }
+                })
+                .catch(error => {
+                  console.error('Error:', error);
+                  alert('An error occurred while fetching employee data.');
+                });
+            } else {
+              alert('You can only mark attendance for your own ID.');
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while checking session data.');
+          });
+      } else {
+        alert('Please enter a valid employee ID.');
+      }
+    }
+  </script>
+</body>
+</html>

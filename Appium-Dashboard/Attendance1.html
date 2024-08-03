@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendance</title>
+  <link rel="stylesheet" href="css/attendance1.css">
+</head>
+<body>
+  <div class="left-section">
+    <div class="icon-group">
+      <img src="images/mdi_chat-outline.png" alt="Icon 2" class="icon">
+      <img src="images/Vector.png" alt="Icon 1" class="icon">
+      <img src="images/Vector (1).png" alt="Icon 3" class="icon">
+      <img src="images/Vector (2).png" alt="Icon 4" class="icon">
+      <img src="images/Vector (3).png" alt="Icon 5" class="icon">
+      <img src="images/Vector (4).png" alt="Icon 6" class="icon">
+      <img src="images/material-symbols_login.png" alt="Icon 7" class="icon">
+    </div>
+    <div class="vertical-line"></div>
+    <div class="heading-group">
+      <h1 class="main-heading">Appium Logics Solution</h1>
+      <div class="icon-wrapper">
+        <img src="images/Vector (5).png" alt="Main Icon" class="main-icon">
+      </div>
+      <h2 class="sub-heading1">Admin</h2>
+      <p class="sub-text1">Private Sector Employee</p>
+      <div class="glassmorphism">
+        <h3 class="working-hours-heading">Working Hours</h3>
+        <div class="working-hours">
+          <div class="time">
+            <img src="images/pic1.png" alt="Start Time" class="time-icon">
+          </div>
+          <div class="time">
+            <img src="images/pic2.png" alt="End Time" class="time-icon">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="right-section">
+    <h1 class="attendance-heading">Attendance</h1>
+    <hr class="divider-line">
+    
+    <div class="search-container">
+      <input type="text" placeholder="Search Employee" class="search-field">
+      <img src="images/Vector (6).png" alt="Search Icon" class="search-icon">
+    </div>
+    
+    <div class="info-section">
+      <div class="info-item">
+        <h2 class="info-item-1">January 2024</h2>
+      </div>
+      <div class="info-item">
+        <h2 class="info-item-2"><u>View Previous</u></h2>
+      </div>
+      <div class="info-item">
+        <h2 class="info-item-3">Total Working Days</h2>
+      </div>
+      <div class="info-item">
+        <h2 class="info-item-4">22</h2>
+      </div>
+    </div>
+
+    <div class="headings-row">
+      <div class="heading-item">Employee Name</div>
+      <div class="heading-item">ID</div>
+      <div class="heading-item">Status</div>
+      <div class="heading-item">Absents In This Month</div>
+      <div class="heading-item">Overtime Hours</div>
+    </div>
+
+    <div id="data-rows-container"></div>
+  </div>
+
+  <script>
+    function fetchAttendanceData() {
+      fetch('fetch_attendance.php')
+        .then(response => response.json())
+        .then(data => {
+          const dataRowsContainer = document.getElementById('data-rows-container');
+          dataRowsContainer.innerHTML = '';
+          data.forEach(record => {
+            const newRow = document.createElement('div');
+            newRow.classList.add('data-row');
+            newRow.innerHTML = `
+              <div class="data-cell">${record.name}</div>
+              <div class="data-cell">${record.employee_id}</div>
+              <div class="data-cell">${record.status}</div>
+              <div class="data-cell">${record.absents}</div>
+              <div class="data-cell">${record.overtime_hours ? record.overtime_hours : '-'}</div>
+            `;
+            dataRowsContainer.appendChild(newRow);
+          });
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    // Fetch attendance data on page load
+    document.addEventListener('DOMContentLoaded', fetchAttendanceData);
+  </script>
+</body>
+</html>
